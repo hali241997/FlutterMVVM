@@ -1,19 +1,24 @@
-import 'dart:convert';
 import 'package:crud/data/models/movie.dart';
+import 'package:crud/data/services/web_api/api_base_helper.dart';
 import 'package:crud/data/services/web_api/web_api.dart';
-import 'package:http/http.dart' as http;
 
 class WebApiImpl implements WebApi {
+  @override
+  ApiBaseHelper apiBaseHelper = ApiBaseHelper();
+
   List<Movie> movies;
 
   @override
   Future<List<Movie>> fetchMovies(String keyword) async {
     if (movies == null) {
       print('Getting movies from the web');
-      final url = "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
-      final uri = Uri.parse(url);
-      final results = await http.get(uri);
-      final jsonObject = json.decode(results.body);
+      apiBaseHelper.baseUrl =
+          "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
+      final jsonObject = await apiBaseHelper.get("");
+      // final url = "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
+      // final uri = Uri.parse(url);
+      // final results = await http.get(uri);
+      // final jsonObject = json.decode(results.body);jsonObject
       movies = createRateListFromRawMap(jsonObject);
       return movies;
     } else {
