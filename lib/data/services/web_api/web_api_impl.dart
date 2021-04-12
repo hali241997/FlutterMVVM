@@ -15,10 +15,6 @@ class WebApiImpl implements WebApi {
       apiBaseHelper.baseUrl =
           "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
       final jsonObject = await apiBaseHelper.get("");
-      // final url = "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
-      // final uri = Uri.parse(url);
-      // final results = await http.get(uri);
-      // final jsonObject = json.decode(results.body);jsonObject
       movies = createRateListFromRawMap(jsonObject);
       return movies;
     } else {
