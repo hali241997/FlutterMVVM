@@ -4,7 +4,10 @@ part 'movie.g.dart';
 
 @JsonSerializable()
 class Movie {
+  @JsonKey(name: "Title")
   String title;
+
+  @JsonKey(name: "Poster")
   String poster;
 
   Movie({this.title, this.poster});

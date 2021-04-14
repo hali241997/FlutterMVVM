@@ -1,92 +1,60 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:crud/data/services/web_api/api_exceptions.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ApiBaseHelper {
   String baseUrl = "";
+  Dio dio;
 
-  ApiBaseHelper({this.baseUrl});
+  ApiBaseHelper({this.baseUrl}) {
+    BaseOptions options = BaseOptions(
+      receiveTimeout: 5000,
+      connectTimeout: 10000,
+      baseUrl: this.baseUrl,
+    );
+    dio = Dio(options);
+    dio.interceptors.add(LogInterceptor());
+  }
 
   Future<dynamic> get(String url) async {
     print('Api Get, url $url');
 
-    var responseJson;
-
     try {
-      final response = await http.get(Uri.parse(baseUrl + url));
-      responseJson = returnResponse(response);
-    } on SocketException {
-      print('No net');
-      throw FetchDataException('No Internet Connection');
+      final response = await dio.get(url);
+      return response.data;
+    } catch (error) {
+      print('error: $error');
     }
-
-    return responseJson;
   }
 
-  Future<dynamic> post(String url, dynamic body) async {
+  Future<dynamic> post(String url, dynamic data) async {
     print('Api Post, url $url');
 
-    var responseJson;
-
     try {
-      final response = await http.post(Uri.parse(baseUrl + url), body: body);
-      responseJson = returnResponse(response);
-    } on SocketException {
-      print('No net');
-      throw FetchDataException('No Internet Connection');
+      final response = await dio.post(url, data: {data});
+      return response.data;
+    } catch (error) {
+      print('error: $error');
     }
-
-    return responseJson;
   }
 
-  Future<dynamic> put(String url, dynamic body) async {
+  Future<dynamic> put(String url, dynamic data) async {
     print('Api Put, url $url');
 
-    var responseJson;
-
     try {
-      final response = await http.put(Uri.parse(baseUrl + url), body: body);
-      responseJson = returnResponse(response);
-    } on SocketException {
-      print('No net');
-      throw FetchDataException('No Internet Connection');
+      final response = await dio.put(url, data: {data});
+      return response.data;
+    } catch (error) {
+      print('error: $error');
     }
-
-    return responseJson;
   }
 
   Future<dynamic> delete(String url) async {
     print('Api Delete, url $url');
 
-    var responseJson;
-
     try {
-      final response = await http.delete(Uri.parse(baseUrl + url));
-      responseJson = returnResponse(response);
-    } on SocketException {
-      print('No net');
-      throw FetchDataException('No Internet Connection');
-    }
-
-    return responseJson;
-  }
-
-  dynamic returnResponse(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        var responseJson = json.decode(response.body.toString());
-        print(responseJson);
-        return responseJson;
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      case 500:
-      default:
-        throw FetchDataException(
-            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+      final response = await dio.delete(url);
+      return response.data;
+    } catch (error) {
+      print('error: $error');
     }
   }
 }

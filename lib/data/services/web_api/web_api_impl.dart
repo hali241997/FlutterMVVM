@@ -12,10 +12,9 @@ class WebApiImpl implements WebApi {
   Future<List<Movie>> fetchMovies(String keyword) async {
     if (movies == null) {
       print('Getting movies from the web');
-      apiBaseHelper.baseUrl =
-          "https://www.omdbapi.com/?s=$keyword&apikey=b078243";
-      final jsonObject = await apiBaseHelper.get("");
-      movies = createRateListFromRawMap(jsonObject);
+      final results = await apiBaseHelper
+          .get("https://www.omdbapi.com/?s=$keyword&apikey=b078243");
+      movies = createRateListFromRawMap(results);
       return movies;
     } else {
       print('getting rates from cache');
