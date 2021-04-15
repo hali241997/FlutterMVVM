@@ -1,6 +1,6 @@
 import 'package:crud/data/models/movie.dart';
-import 'package:crud/data/services/movie/movie_service.dart';
-import 'package:crud/data/services/service_locator.dart';
+import 'package:crud/data/movie/movie_service.dart';
+import 'package:crud/data/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 
 class MovieViewModel extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:crud/data/services/service_locator.dart';
+import 'package:crud/data/service_locator.dart';
 import 'package:crud/view/MovieListScreen.dart';
 import 'package:flutter/material.dart';
 

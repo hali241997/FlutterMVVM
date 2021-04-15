@@ -1,7 +1,7 @@
 import 'package:crud/data/models/movie.dart';
-import 'package:crud/data/services/movie/movie_service.dart';
-import 'package:crud/data/services/service_locator.dart';
-import 'package:crud/data/services/web_api/web_api.dart';
+import 'package:crud/data/movie/movie_service.dart';
+import 'package:crud/data/service_locator.dart';
+import 'package:crud/data/web_api/web_api.dart';
 
 class MovieServiceImp implements MovieService {
   WebApi webApi = serviceLocator<WebApi>();
