@@ -1,4 +1,4 @@
-import 'package:crud/data/models/entity_types.dart';
+import 'package:crud/data/models/base/model_types.dart';
 import 'package:crud/data/models/movie.dart';
 import 'package:crud/data/models/movie_search_response.dart';
 

@@ -1,4 +1,4 @@
-import 'package:crud/data/web_api/dio_util/model_factory.dart';
+import 'package:crud/data/models/base/model_factory.dart';
 
 class BaseModel<T> {
   int code;

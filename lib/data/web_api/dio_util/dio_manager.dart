@@ -1,6 +1,6 @@
 // import 'package:crud/data/models/movie.dart';
-import 'package:crud/data/web_api/dio_util/base_list_model.dart';
-import 'package:crud/data/web_api/dio_util/base_model.dart';
+import 'package:crud/data/models/base/base_list_model.dart';
+import 'package:crud/data/models/base/base_model.dart';
 import 'package:crud/data/web_api/dio_util/headers_interceptors.dart';
 import 'package:crud/data/web_api/dio_util/http_error.dart';
 import 'package:crud/data/web_api/dio_util/logs_interceptor.dart';
