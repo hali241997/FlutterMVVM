@@ -1,4 +1,4 @@
-import 'package:crud/data/web_api/dio_util/entity_factory.dart';
+import 'package:crud/data/web_api/dio_util/model_factory.dart';
 
 class BaseModel<T> {
   int code;
@@ -8,17 +8,17 @@ class BaseModel<T> {
 
   BaseModel({this.code, this.message, this.data});
 
-  factory BaseModel.fromJson(json) {
-    if (json['Data'] != null) {
+  factory BaseModel.fromJson(code, message, json) {
+    if (json != null) {
       return BaseModel(
-        code: json['Code'],
-        message: json['Message'],
-        data: EntityFactory.generatedObj<T>(json['Data']),
+        code: code,
+        message: message,
+        data: EntityFactory.generateObjectFromJson<T>(json),
       );
     } else {
       return BaseModel(
-        code: json['Code'],
-        message: json['Message'],
+        code: code,
+        message: message,
         data: null,
       );
     }

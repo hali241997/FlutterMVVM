@@ -1,42 +1,32 @@
-import 'package:crud/data/web_api/dio_util/entity_factory.dart';
+import 'package:crud/data/web_api/dio_util/model_factory.dart';
 
 class BaseListModel<T> {
-  // int code;
-  // String message;
-  // dynamic pageResult;
-  List<T> search;
+  int code;
+  String message;
+  List<T> data;
 
-  // BaseListModel({this.code, this.message, this.data, this.pageResult});
-  BaseListModel({this.search});
+  BaseListModel({this.code, this.message, this.data});
 
-  factory BaseListModel.fromJson(json) {
-    List<T> mSearch = [];
-    if (json['Search'] != null) {
-      (json['Search'] as List).forEach((element) {
-        mSearch.add(EntityFactory.generatedObj<T>(element));
+  factory BaseListModel.fromJson(code, message, json) {
+    List<T> mData = List.empty();
+    if (json != null) {
+      (json as List).forEach((element) {
+        mData.add(EntityFactory.generateObjectFromJson(json)<T>(element));
       });
     }
 
-    return BaseListModel(search: mSearch);
-    // if (json['Data'] != null && json['Data']['Data'] != null) {
-    //   (json['Data']['Data'] as List).forEach((element) {
-    //     mData.add(EntityFactory.generatedObj<T>(element));
-    //   });
-    // }
-
-    // if (json['Data'] != null) {
-    //   return BaseListModel(
-    //     code: json['code'],
-    //     message: json['Message'],
-    //     data: mData,
-    //     pageResult: EntityFactory.generatedObj<T>(json['Data']['PagingResult']),
-    //   );
-    // } else {
-    //   return BaseListModel(
-    //     code: json['code'],
-    //     message: json['Message'],
-    //     data: null,
-    //   );
-    // }
+    if (json != null) {
+      return BaseListModel(
+        code: code,
+        message: message,
+        data: mData,
+      );
+    } else {
+      return BaseListModel(
+        code: code,
+        message: message,
+        data: null,
+      );
+    }
   }
 }
